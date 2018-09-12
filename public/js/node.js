@@ -5,8 +5,6 @@ require('dotenv').config();
 const yelp = require('yelp-fusion');
 
 const client = yelp.client(process.env.YELP_API_KEY);
-// const client = yelp.client(
-//     "xYGiIJr7nkicoQEwqbbpXgTMjS7jTCS6vTnPLDXfEDmmub9LoU9QbhS7bLP_u0ER2qAPo281wK_R9LO_fd8pZQ846dLGer-gGNEpQGHAGPnS_a9IFw-TNMEOUASXW3Yx");
 
 client.search({
   location: '60607',
