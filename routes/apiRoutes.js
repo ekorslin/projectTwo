@@ -10,10 +10,10 @@ module.exports = function(app) {
 
   // Create a new example
   app.post("/api/out", function(req, res) {
-    console.log(req.body);
+    console.log("this is server req.body: " + req.body);
     
     // db.Example.create(req.body).then(function(dbExample) {
-    //   res.json(dbExample);
+      res.json(req.body);
     // });
   });
 
