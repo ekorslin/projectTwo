@@ -39,8 +39,11 @@
           <div class="card-header text-white bg-warning">
             <h4>Would you like to stay in or go out?</h4>
           </div>
+
           <div class="card-body">
+
             <div class="btn-group btn-group-toggle p-2" data-toggle="buttons">
+
               <label class="btn btn-outline-warning mr-2" id="in-button" style="height:50px;width:250px">
                 <input type="radio" name="options" autocomplete="off"> EAT IN
               </label>
@@ -61,13 +64,14 @@
       </div>
       <div class="card-body">
         <h5 class="card-title">Please enter your zip code:</h5>
-        <form action="/api/zipcode" method="POST">
-          <textarea type="text" rows="1" name="zipcode"></textarea><br>
+        <form>
+          {{!-- <input type="text" class="form-control" id="zipcode-form" placeholder="Enter your zipcode"> --}}
+          <textarea type="text" rows="1" id="zipcode-form" name="zipcode"></textarea><br>
           <button type="submit" class="btn btn-info mb-2" id="zipcode-button">Next</button>
         </form>
       </div>
       <div class="card-footer text-muted text-right">
-        <button type="submit" class="btn btn-white mb-2 startover-button">Start Over</button>
+        <a class="btn btn-white mb-2 startover-button" href="/" role="button">Start Over</a>
       </div>
     </div>
 
@@ -81,22 +85,24 @@
 
         <div class="btn-group btn-group-toggle p-2" data-toggle="buttons">
           <label class="btn btn-outline-info mr-2">
-            <input type="radio" name="options" id="option1" autocomplete="off"> Italian
+            <input type="radio" name="outCategory" value="italian" id="italian-out" autocomplete="off"> Italian
           </label>
           <label class="btn btn-outline-info mr-2">
-            <input type="radio" name="options" id="option2" autocomplete="off"> Indian
+            <input type="radio" name="outCategory" value="indian" id="indian-out" autocomplete="off"> Indian
           </label>
           <label class="btn btn-outline-info mr-2">
-            <input type="radio" name="options" id="option3" autocomplete="off"> Mexican
+            <input type="radio" name="outCategory" value="mexican" id="mexican-out" autocomplete="off"> Mexican
           </label>
           <label class="btn btn-outline-info mr-2">
-            <input type="radio" name="options" id="option4" autocomplete="off"> American
+            <input type="radio" name="outCategory" value="american" id="american-out" autocomplete="off"> American
           </label>
           <label class="btn btn-outline-info mr-2">
-            <input type="radio" name="options" id="option5" autocomplete="off"> Mediterranean
+            <input type="radio" name="outCategory" value="mediterranean" id="mediterranean-out" autocomplete="off">
+            Mediterranean
           </label>
           <label class="btn btn-outline-info mr-2">
-            <input type="radio" name="options" id="option6" autocomplete="off"> Comfort Food
+            <input type="radio" name="outCategory" value="comfortfood" id="comfortfood-out" autocomplete="off"> Comfort
+            Food
           </label>
         </div>
         <div>
@@ -104,7 +110,7 @@
         </div>
       </div>
       <div class="card-footer text-muted text-right">
-        <button type="submit" class="btn btn-white mb-2 startover-button">Start Over</button>
+        <a class="btn btn-white mb-2 startover-button" href="/" role="button">Start Over</a>
       </div>
     </div>
 
@@ -114,20 +120,20 @@
         <h4>How much are you looking to spend?</h4>
       </div>
       <div class="card-body">
-        <h5 class="card-title">Please choose a category:</h5>
+        <h5 class="card-title">Please choose a price range:</h5>
 
         <div class="btn-group btn-group-toggle p-2" data-toggle="buttons">
           <label class="btn btn-outline-info mr-2">
-            <input type="radio" name="options" id="option1" autocomplete="off"> $
+            <input type="radio" name="outSpend" value="1" id="outSpend1" autocomplete="off"> $
           </label>
           <label class="btn btn-outline-info mr-2">
-            <input type="radio" name="options" id="option2" autocomplete="off"> $$
+            <input type="radio" name="outSpend" value="2" id="outSpend2" autocomplete="off"> $$
           </label>
           <label class="btn btn-outline-info mr-2">
-            <input type="radio" name="options" id="option3" autocomplete="off"> $$$
+            <input type="radio" name="outSpend" value="3" id="outSpend3" autocomplete="off"> $$$
           </label>
           <label class="btn btn-outline-info mr-2">
-            <input type="radio" name="options" id="option4" autocomplete="off"> $$$$
+            <input type="radio" name="outSpend" value="4" id="outSpend4" autocomplete="off"> $$$$
           </label>
         </div>
         <div>
@@ -135,7 +141,7 @@
         </div>
       </div>
       <div class="card-footer text-muted text-right">
-        <button type="submit" class="btn btn-white mb-2 startover-button">Start Over</button>
+        <a class="btn btn-white mb-2 startover-button" href="/" role="button">Start Over</a>
       </div>
     </div>
 
@@ -148,7 +154,7 @@
         <h5 class="card-title">Results:</h5>
       </div>
       <div class="card-footer text-muted text-right">
-        <button type="submit" class="btn btn-white mb-2 startover-button">Start Over</button>
+        <a class="btn btn-white mb-2 startover-button" href="/" role="button">Start Over</a>
       </div>
     </div>
 
@@ -159,44 +165,63 @@
 
   <script type="text/javascript">
 
-    $(document).ready(function () {
+    var startApp = function () {
       $("#location-card, #category-card, #spend-card, #results-card").hide();
+    };
+
+
+    var outAnswers = {
+      zipcode: "",
+      category: "",
+      spend: "",
+    }
+
+    var submitOutAnswers = function () {
+
+      // AJAX post the data to the out API.
+      $.post("/api/out", outAnswers, function (res) {
+
+        console.log("Submitted: ", outAnswers);
+        $("#results-card").show("slow");
+      });
+    };
+
+    $(document).ready(function () {
+
+      startApp();
 
       $("#out-button").on("click", function (event) {
         event.preventDefault();
-        console.log("working")
 
         $("#location-card").show("slow");
       });
 
       $("#zipcode-button").on("click", function (event) {
         event.preventDefault();
-        console.log("working")
+
+        outAnswers.zipcode = $("#zipcode-form").val().trim();
+        console.log(outAnswers.zipcode)
         $("#location-card").hide("slow");
         $("#category-card").show("slow");
       });
 
       $("#category-button").on("click", function (event) {
         event.preventDefault();
-        console.log("working")
+
+        outAnswers.category = $('input[name=outCategory]:checked').val();
+        console.log(outAnswers.category)
         $("#category-card").hide("slow");
         $("#spend-card").show("slow");
       });
 
       $("#spend-button").on("click", function (event) {
         event.preventDefault();
-        console.log("working")
+        outAnswers.spend = $('input[name=outSpend]:checked').val();
+        console.log(outAnswers.spend)
         $("#spend-card").hide("slow");
-        $("#results-card").show("slow");
+        console.log(outAnswers)
+        submitOutAnswers();
       });
-
-
-      $(".startover-button").on("click", function (event) {
-        window.location.reload();
-      });
-
-
-
 
     });
 
