@@ -1,33 +1,206 @@
-<div id="home">
-  <div class="container">
-    <div class="row">
-      <div class="col-8 offset-2">
-        <h1>{{msg}}</h1>
-        <h2>This is our Home Page!</h2>
-        <form class="clearfix mb-4" action="POST">
-          <div class="form-group">
-            <label for="example-text">Example Text</label>
-            <input type="text" id="example-text" class="form-control" aria-describedby="example-text" placeholder="Enter Example Text">
-          </div>
-          <div class="form-group">
-            <label for="example-description">Example Description</label>
-            <textarea class="form-control" id="example-description" aria-describedby="example-description" placeholder="Enter Example Description"></textarea>
-          </div>
-          <button id="submit" class="btn btn-primary float-right">Submit</button>
-        </form>
-        <h3>Examples:</h3>
-        <ul id="example-list" class="list-group">
-          {{#each examples}}
-          <li data-id="{{this.id}}" class="list-group-item">
-            <a href="example/{{this.id}}">{{this.text}}</a>
-            <button class="btn btn-danger float-right delete">ｘ</button>
-          </li>
-          {{/each}}
-        </ul>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+    crossorigin="anonymous">
+  <!-- Link to Fontawesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+    crossorigin="anonymous">
+  <!-- My CSS -->
+  <link rel="stylesheet" type="text/css" media="screen" href="/public/styles/styles.css" />
+  <!-- Jquery -->
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+  <title>What's for dinner?</title>
+</head>
+
+<body>
+  <section class="jumbotron text-center shadow-lg bg-info" style="color:white">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="mb-3">What's for dinner?</h1>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+  </section>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="/js/index.js"></script>
+  <div class="container">
+
+    <div class="row text-center mb-4">
+      <div class="col-md-12">
+        <div class="card text-center shadow-lg">
+          <div class="card-header text-white bg-warning">
+            <h4>Would you like to stay in or go out?</h4>
+          </div>
+          <div class="card-body">
+            <div class="btn-group btn-group-toggle p-2" data-toggle="buttons">
+              <label class="btn btn-outline-warning mr-2" id="in-button" style="height:50px;width:250px">
+                <input type="radio" name="options" autocomplete="off"> EAT IN
+              </label>
+              <label class="btn btn-outline-warning mr-2" id="out-button" style="height:50px;width:250px">
+                <input type="radio" name="options" autocomplete="off"> EAT OUT
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="card text-center shadow-lg" id="location-card">
+      <div class="card-header text-white bg-info">
+        <h4>Where are you located?</h4>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Please enter your zip code:</h5>
+        <form action="/api/zipcode" method="POST">
+          <textarea type="text" rows="1" name="zipcode"></textarea><br>
+          <button type="submit" class="btn btn-info mb-2" id="zipcode-button">Next</button>
+        </form>
+      </div>
+      <div class="card-footer text-muted text-right">
+        <button type="submit" class="btn btn-white mb-2 startover-button">Start Over</button>
+      </div>
+    </div>
+
+
+    <div class="card text-center shadow-lg" id="category-card">
+      <div class="card-header text-white bg-info">
+        <h4>What are you in the mood for?</h4>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Please choose a category:</h5>
+
+        <div class="btn-group btn-group-toggle p-2" data-toggle="buttons">
+          <label class="btn btn-outline-info mr-2">
+            <input type="radio" name="options" id="option1" autocomplete="off"> Italian
+          </label>
+          <label class="btn btn-outline-info mr-2">
+            <input type="radio" name="options" id="option2" autocomplete="off"> Indian
+          </label>
+          <label class="btn btn-outline-info mr-2">
+            <input type="radio" name="options" id="option3" autocomplete="off"> Mexican
+          </label>
+          <label class="btn btn-outline-info mr-2">
+            <input type="radio" name="options" id="option4" autocomplete="off"> American
+          </label>
+          <label class="btn btn-outline-info mr-2">
+            <input type="radio" name="options" id="option5" autocomplete="off"> Mediterranean
+          </label>
+          <label class="btn btn-outline-info mr-2">
+            <input type="radio" name="options" id="option6" autocomplete="off"> Comfort Food
+          </label>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-info mb-2 mt-2" id="category-button">Next</button>
+        </div>
+      </div>
+      <div class="card-footer text-muted text-right">
+        <button type="submit" class="btn btn-white mb-2 startover-button">Start Over</button>
+      </div>
+    </div>
+
+
+    <div class="card text-center shadow-lg" id="spend-card">
+      <div class="card-header text-white bg-info">
+        <h4>How much are you looking to spend?</h4>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Please choose a category:</h5>
+
+        <div class="btn-group btn-group-toggle p-2" data-toggle="buttons">
+          <label class="btn btn-outline-info mr-2">
+            <input type="radio" name="options" id="option1" autocomplete="off"> $
+          </label>
+          <label class="btn btn-outline-info mr-2">
+            <input type="radio" name="options" id="option2" autocomplete="off"> $$
+          </label>
+          <label class="btn btn-outline-info mr-2">
+            <input type="radio" name="options" id="option3" autocomplete="off"> $$$
+          </label>
+          <label class="btn btn-outline-info mr-2">
+            <input type="radio" name="options" id="option4" autocomplete="off"> $$$$
+          </label>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-info mb-2 mt-2" id="spend-button">Next</button>
+        </div>
+      </div>
+      <div class="card-footer text-muted text-right">
+        <button type="submit" class="btn btn-white mb-2 startover-button">Start Over</button>
+      </div>
+    </div>
+
+
+    <div class="card text-center shadow-lg" id="results-card">
+      <div class="card-header text-white bg-info">
+        <h4>Which one looks better?</h4>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Results:</h5>
+      </div>
+      <div class="card-footer text-muted text-right">
+        <button type="submit" class="btn btn-white mb-2 startover-button">Start Over</button>
+      </div>
+    </div>
+
+
+
+  </div>
+
+
+  <script type="text/javascript">
+
+    $(document).ready(function () {
+      $("#location-card, #category-card, #spend-card, #results-card").hide();
+
+      $("#out-button").on("click", function (event) {
+        event.preventDefault();
+        console.log("working")
+
+        $("#location-card").show("slow");
+      });
+
+      $("#zipcode-button").on("click", function (event) {
+        event.preventDefault();
+        console.log("working")
+        $("#location-card").hide("slow");
+        $("#category-card").show("slow");
+      });
+
+      $("#category-button").on("click", function (event) {
+        event.preventDefault();
+        console.log("working")
+        $("#category-card").hide("slow");
+        $("#spend-card").show("slow");
+      });
+
+      $("#spend-button").on("click", function (event) {
+        event.preventDefault();
+        console.log("working")
+        $("#spend-card").hide("slow");
+        $("#results-card").show("slow");
+      });
+
+
+      $(".startover-button").on("click", function (event) {
+        window.location.reload();
+      });
+
+
+
+
+    });
+
+
+  </script>
+
+</body>
