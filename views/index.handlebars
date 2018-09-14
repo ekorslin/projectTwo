@@ -32,18 +32,15 @@
   </section>
 
   <div class="container">
-
-    <div class="row text-center mb-4">
-      <div class="col-md-12">
-        <div class="card text-center shadow-lg">
+{{!-- Row for the eating in or out question. Will also show a stat --}}
+    <div class="row text-center">
+      <div class="col-md-9 mb-4">
+        <div class="card text-center shadow-lg" style="height:175px">
           <div class="card-header text-white bg-warning">
             <h4>Would you like to stay in or go out?</h4>
           </div>
-
           <div class="card-body">
-
             <div class="btn-group btn-group-toggle p-2" data-toggle="buttons">
-
               <label class="btn btn-outline-warning mr-2" id="in-button" style="height:50px;width:250px">
                 <input type="radio" name="options" autocomplete="off"> EAT IN
               </label>
@@ -54,98 +51,159 @@
           </div>
         </div>
       </div>
+      {{!-- Stat card for users choosing in or out --}}
+      <div class="col-md-3 mb-4">
+        <div class="card text-center shadow-lg text-white bg-warning" style="height:175px;max-width: 18rem;">
+          <div class="card-header">Header</div>
+          <div class="card-body">
+            <h5 class="card-title">Analytics</h5>
+            <p class="card-text">Will go here</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{{!-- if user chooses to eat out this is the card asking for zip code --}}
+    <div class="row text-center" id="location-card">
+      <div class="col-md-9 mb-4">
+        <div class="card text-center shadow-lg">
+          <div class="card-header text-white bg-info">
+            <h4>Where are you located?</h4>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Please enter your zip code:</h5>
+            <form>
+              <textarea type="text" rows="1" id="zipcode-form" name="zipcode" style="outline:1px solid black"></textarea><br>
+              <button type="submit" class="btn btn-info mb-2" id="zipcode-button">Next</button>
+            </form>
+          </div>
+          <div class="card-footer text-muted text-right">
+            <a class="btn-sm btn-outline-warning mb-2 startover-button" style="height:10px" href="/" role="button">Start
+              Over</a>
+          </div>
+        </div>
+      </div>
+{{!-- location and zip relevant user stats --}}
+      <div class="col-md-3 mb-4">
+        <div class="card text-center shadow-lg text-white bg-info" style="height:270px;max-width: 18rem;">
+          <div class="card-header">Header</div>
+          <div class="card-body">
+            <h5 class="card-title">Analytics</h5>
+            <p class="card-text">Will go here</p>
+          </div>
+        </div>
+      </div>
+    </div>
+{{!-- eating out category card --}}
+    <div class="row text-center" id="category-card">
+      <div class="col-md-9 mb-4">
+
+        <div class="card text-center shadow-lg">
+          <div class="card-header text-white bg-info">
+            <h4>What are you in the mood for?</h4>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Please choose a category:</h5>
+
+            <div class="btn-group btn-group-toggle p-2" data-toggle="buttons">
+              <label class="btn btn-outline-info mr-2">
+                <input type="radio" name="outCategory" value="italian" id="italian-out" autocomplete="off"> Italian
+              </label>
+              <label class="btn btn-outline-info mr-2">
+                <input type="radio" name="outCategory" value="indian" id="indian-out" autocomplete="off"> Indian
+              </label>
+              <label class="btn btn-outline-info mr-2">
+                <input type="radio" name="outCategory" value="mexican" id="mexican-out" autocomplete="off"> Mexican
+              </label>
+              <label class="btn btn-outline-info mr-2">
+                <input type="radio" name="outCategory" value="american" id="american-out" autocomplete="off"> American
+              </label>
+              <label class="btn btn-outline-info mr-2">
+                <input type="radio" name="outCategory" value="mediterranean" id="mediterranean-out" autocomplete="off">
+                Mediterranean
+              </label>
+              <label class="btn btn-outline-info mr-2">
+                <input type="radio" name="outCategory" value="comfortfood" id="comfortfood-out" autocomplete="off">
+                Comfort
+                Food
+              </label>
+            </div>
+            <div>
+              <button type="submit" class="btn btn-info mb-2 mt-2" id="category-button">Next</button>
+            </div>
+          </div>
+          <div class="card-footer text-muted text-right">
+            <a class="btn-sm btn-outline-warning mb-2 startover-button" style="height:10px" href="/" role="button">Start
+              Over</a>
+          </div>
+        </div>
+      </div>
+{{!-- eating out stat on user categories chosen card --}}
+      <div class="col-md-3 mb-4">
+        <div class="card text-center shadow-lg text-white bg-info" style="height:295px;max-width: 18rem;">
+          <div class="card-header">Header</div>
+          <div class="card-body">
+            <h5 class="card-title">Analytics</h5>
+            <p class="card-text">Will go here</p>
+          </div>
+        </div>
+      </div>
     </div>
 
 
 
-    <div class="card text-center shadow-lg" id="location-card">
-      <div class="card-header text-white bg-info">
-        <h4>Where are you located?</h4>
+{{!-- eating out spend card --}}
+    <div class="row text-center" id="spend-card">
+      <div class="col-md-9 mb-4">
+
+        <div class="card text-center shadow-lg">
+          <div class="card-header text-white bg-info">
+            <h4>How much are you looking to spend?</h4>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Please choose a price range:</h5>
+
+            <div class="btn-group btn-group-toggle p-2" data-toggle="buttons">
+              <label class="btn btn-outline-info mr-2">
+                <input type="radio" name="outSpend" value="1" id="outSpend1" autocomplete="off"> $
+              </label>
+              <label class="btn btn-outline-info mr-2">
+                <input type="radio" name="outSpend" value="2" id="outSpend2" autocomplete="off"> $$
+              </label>
+              <label class="btn btn-outline-info mr-2">
+                <input type="radio" name="outSpend" value="3" id="outSpend3" autocomplete="off"> $$$
+              </label>
+              <label class="btn btn-outline-info mr-2">
+                <input type="radio" name="outSpend" value="4" id="outSpend4" autocomplete="off"> $$$$
+              </label>
+            </div>
+            <div>
+              <button type="submit" class="btn btn-info mb-2 mt-2 glow" id="spend-button">Get Results</button>
+            </div>
+          </div>
+          <div class="card-footer text-muted text-right">
+            <a class="btn-sm btn-outline-warning mb-2 startover-button" style="height:10px" href="/" role="button">Start
+              Over</a>
+          </div>
+        </div>
       </div>
-      <div class="card-body">
-        <h5 class="card-title">Please enter your zip code:</h5>
-        <form>
-          {{!-- <input type="text" class="form-control" id="zipcode-form" placeholder="Enter your zipcode"> --}}
-          <textarea type="text" rows="1" id="zipcode-form" name="zipcode"></textarea><br>
-          <button type="submit" class="btn btn-info mb-2" id="zipcode-button">Next</button>
-        </form>
-      </div>
-      <div class="card-footer text-muted text-right">
-        <a class="btn btn-white mb-2 startover-button" href="/" role="button">Start Over</a>
+
+{{!-- eating out user stat on how much people are choosing to spend card --}}
+      <div class="col-md-3 mb-4">
+        <div class="card text-center shadow-lg text-white bg-info" style="height:295px;max-width: 18rem;">
+          <div class="card-header">Header</div>
+          <div class="card-body">
+            <h5 class="card-title">Analytics</h5>
+            <p class="card-text">Will go here</p>
+          </div>
+        </div>
       </div>
     </div>
 
 
-    <div class="card text-center shadow-lg" id="category-card">
-      <div class="card-header text-white bg-info">
-        <h4>What are you in the mood for?</h4>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Please choose a category:</h5>
-
-        <div class="btn-group btn-group-toggle p-2" data-toggle="buttons">
-          <label class="btn btn-outline-info mr-2">
-            <input type="radio" name="outCategory" value="italian" id="italian-out" autocomplete="off"> Italian
-          </label>
-          <label class="btn btn-outline-info mr-2">
-            <input type="radio" name="outCategory" value="indian" id="indian-out" autocomplete="off"> Indian
-          </label>
-          <label class="btn btn-outline-info mr-2">
-            <input type="radio" name="outCategory" value="mexican" id="mexican-out" autocomplete="off"> Mexican
-          </label>
-          <label class="btn btn-outline-info mr-2">
-            <input type="radio" name="outCategory" value="american" id="american-out" autocomplete="off"> American
-          </label>
-          <label class="btn btn-outline-info mr-2">
-            <input type="radio" name="outCategory" value="mediterranean" id="mediterranean-out" autocomplete="off">
-            Mediterranean
-          </label>
-          <label class="btn btn-outline-info mr-2">
-            <input type="radio" name="outCategory" value="comfortfood" id="comfortfood-out" autocomplete="off"> Comfort
-            Food
-          </label>
-        </div>
-        <div>
-          <button type="submit" class="btn btn-info mb-2 mt-2" id="category-button">Next</button>
-        </div>
-      </div>
-      <div class="card-footer text-muted text-right">
-        <a class="btn btn-white mb-2 startover-button" href="/" role="button">Start Over</a>
-      </div>
-    </div>
 
 
-    <div class="card text-center shadow-lg" id="spend-card">
-      <div class="card-header text-white bg-info">
-        <h4>How much are you looking to spend?</h4>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Please choose a price range:</h5>
-
-        <div class="btn-group btn-group-toggle p-2" data-toggle="buttons">
-          <label class="btn btn-outline-info mr-2">
-            <input type="radio" name="outSpend" value="1" id="outSpend1" autocomplete="off"> $
-          </label>
-          <label class="btn btn-outline-info mr-2">
-            <input type="radio" name="outSpend" value="2" id="outSpend2" autocomplete="off"> $$
-          </label>
-          <label class="btn btn-outline-info mr-2">
-            <input type="radio" name="outSpend" value="3" id="outSpend3" autocomplete="off"> $$$
-          </label>
-          <label class="btn btn-outline-info mr-2">
-            <input type="radio" name="outSpend" value="4" id="outSpend4" autocomplete="off"> $$$$
-          </label>
-        </div>
-        <div>
-          <button type="submit" class="btn btn-info mb-2 mt-2" id="spend-button">Next</button>
-        </div>
-      </div>
-      <div class="card-footer text-muted text-right">
-        <a class="btn btn-white mb-2 startover-button" href="/" role="button">Start Over</a>
-      </div>
-    </div>
-
-
+{{!-- eating out results card. user will go through results from yelp api and choose winner --}}
     <div class="card text-center shadow-lg" id="results-card">
       <div class="card-header text-white bg-info">
         <h4>Which one looks better?</h4>
@@ -154,8 +212,36 @@
         <h5 class="card-title">Results:</h5>
       </div>
       <div class="card-footer text-muted text-right">
-        <a class="btn btn-white mb-2 startover-button" href="/" role="button">Start Over</a>
+        <a class="btn-sm btn-outline-warning mb-2 startover-button" style="height:10px" href="/" role="button">Start
+          Over</a>
       </div>
+    </div>
+
+{{!-- animation for loading screen between last question and results card --}}
+    <div class="loading-screen">
+
+      <div class="loading">
+        <div class="loading__element el1">G</div>
+        <div class="loading__element el2">E</div>
+        <div class="loading__element el3">T</div>
+        <div class="loading__element el4">T</div>
+        <div class="loading__element el5">I</div>
+        <div class="loading__element el6">N</div>
+        <div class="loading__element el7">G</div>
+      </div>
+
+      <div class="loading">
+        <div class="loading__element el1">H</div>
+        <div class="loading__element el2">U</div>
+        <div class="loading__element el3">N</div>
+        <div class="loading__element el4">G</div>
+        <div class="loading__element el5">R</div>
+        <div class="loading__element el6">Y</div>
+        <div class="loading__element el7">?</div>
+        {{!-- <div class="loading__element el8">E</div>
+        <div class="loading__element el9">S</div> --}}
+      </div>
+
     </div>
 
 
@@ -166,7 +252,7 @@
   <script type="text/javascript">
 
     var startApp = function () {
-      $("#location-card, #category-card, #spend-card, #results-card").hide();
+      $("#location-card, #category-card, #spend-card, #results-card, .loading-screen").hide();
     };
 
 
@@ -182,8 +268,13 @@
       $.post("/api/out", outAnswers, function (res) {
 
         console.log("Submitted: ", outAnswers);
-        $("#results-card").show("slow");
+        $("#results-card").delay(5000).fadeIn(1000);
       });
+    };
+
+    var loading = function () {
+      $(".loading-screen").show(); setTimeout(function () { $(".loading-screen").hide(); }, 5000);
+      submitOutAnswers();
     };
 
     $(document).ready(function () {
@@ -220,7 +311,7 @@
         console.log(outAnswers.spend)
         $("#spend-card").hide("slow");
         console.log(outAnswers)
-        submitOutAnswers();
+        loading();
       });
 
     });
