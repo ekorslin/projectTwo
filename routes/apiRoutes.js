@@ -13,7 +13,7 @@ module.exports = function(app) {
       price: '1',
       categories: 'pizza'
     }).then(response => {
-        for (var i=0;i<11;i++){
+        for (var i = 0; i < 1 ; i++ ){
       console.log(response.jsonBody.businesses[i].name);
       console.log(response.jsonBody.businesses[i].location.address1);
       console.log(response.jsonBody.businesses[i].location.city);
