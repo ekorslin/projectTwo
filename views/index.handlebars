@@ -61,8 +61,8 @@
       </div>
       <div class="card-body">
         <h5 class="card-title">Please enter your zip code:</h5>
-        <form action="/api/zipcode" method="POST">
-          <textarea type="text" rows="1" name="zipcode"></textarea><br>
+        <form id="zipForm" action="/api/zipcode" method="POST">
+          <textarea type="text" rows="1" name="zipcode" value=""></textarea><br>
           <button type="submit" class="btn btn-info mb-2" id="zipcode-button">Next</button>
         </form>
       </div>
@@ -170,8 +170,8 @@
       });
 
       $("#zipcode-button").on("click", function (event) {
-        event.preventDefault();
-        console.log("working")
+        
+        console.log("working");
         $("#location-card").hide("slow");
         $("#category-card").show("slow");
       });
