@@ -68,6 +68,12 @@
           </div>
         </div>
       </div>
+      <div class="card-body">
+        <h5 class="card-title">Please enter your zip code:</h5>
+        <form id="zipForm" action="/api/zipcode" method="POST">
+          <textarea type="text" rows="1" name="zipcode" value=""></textarea><br>
+          <button type="submit" class="btn btn-info mb-2" id="zipcode-button">Next</button>
+        </form>
     </div>
 
     {{!-- if user chooses to eat out this is the card asking for zip code --}}
@@ -89,6 +95,7 @@
               Over</a>
           </div>
         </div>
+
       </div>
       {{!-- location and zip relevant user stats --}}
       <div class="col-md-3 mb-4">
@@ -307,10 +314,15 @@
       });
 
       $("#zipcode-button").on("click", function (event) {
+
+        
+        console.log("working");
+
         event.preventDefault();
 
         outAnswers.zipcode = $("#zipcode-form").val().trim();
         console.log(outAnswers.zipcode)
+
         $("#location-card").hide("slow");
         $("#category-card").show("slow");
       });
