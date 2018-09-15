@@ -13,6 +13,7 @@ module.exports = function(app) {
   });
 
   // Create a new example
+
   app.post("/api/zipcode", function(req, res) {
     var zipCode = req.body.zipcode;
     console.log(zipCode);
@@ -39,6 +40,15 @@ module.exports = function(app) {
 
     });
   // });
+
+  app.post("/api/out", function(req, res) {
+    console.log("this is server req.body: " + JSON.stringify(req.body));
+    
+    // db.Example.create(req.body).then(function(dbExample) {
+      res.json(req.body);
+    // });
+  });
+
 
   // Delete an example by id
   app.delete("/api/examples/:id", function(req, res) {
