@@ -3,10 +3,7 @@ var db = require("../models");
 require('dotenv').config();
 const yelp = require('yelp-fusion');
 const client = yelp.client(process.env.YELP_API_KEY);
-<<<<<<< HEAD
 
-=======
->>>>>>> 79cec0cc7398848b32b94df5af72941609d39134
 
 module.exports = function(app) {
   // Get all examples
