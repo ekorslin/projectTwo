@@ -32,39 +32,36 @@
   </section>
 
   <div class="container">
+
     {{!-- Row for the eating in or out question. Will also show a stat --}}
-    <div class="row text-center">
+    <div class="row text-center" id="inout-card">
       <div class="col-md-9 mb-4">
-        <div class="card text-center shadow-lg" style="height:195px">
+
+        <div class="card text-center shadow-lg">
           <div class="card-header text-white bg-warning">
             <h4>Stay in or go out?</h4>
           </div>
           <div class="card-body">
             <div class="btn-group btn-group-toggle p-2" data-toggle="buttons">
-              <div class="row">
-                <div class="col-md-6">
-                  <label class="btn btn-outline-warning mr-2" id="in-button" style="height:40px;width:200px">
-                    <input type="radio" name="options" autocomplete="off"> EAT IN
-                  </label>
-                </div>
-                <div class="col-md-6">
-                  <label class="btn btn-outline-warning mr-2" id="out-button" style="height:40px;width:200px">
-                    <input type="radio" name="options" autocomplete="off"> EAT OUT
-                  </label>
-                </div>
-              </div>
+              <label class="btn btn-outline-warning mr-2">
+                <input type="radio" name="in" value="in" id="in-button" autocomplete="off"> EAT IN
+              </label>
+              <label class="btn btn-outline-warning mr-2">
+                <input type="radio" name="out" value="out" id="out-button" autocomplete="off"> EAT OUT
+              </label>
+            </div>
+            <div>
+              <button type="submit" class="btn btn-warning mb-2 mt-2" id="inout-button">Next</button>
             </div>
           </div>
         </div>
       </div>
-
-      {{!-- Stat card for users choosing in or out --}}
-      <div class="col-md-3 mb-4 stats" id="stats">
-        <div class="card text-center shadow-lg text-white bg-warning" style="height:195px;max-width: 18rem;">
-          <div class="card-header">Header</div>
+      {{!-- eating in or out stats --}}
+      <div class="col-md-3 mb-4">
+        <div class="card text-center shadow-lg text-white bg-warning" style="height:210px;max-width: 18rem;">
+          <div class="card-header">Quick Stats</div>
           <div class="card-body">
-            <h5 class="card-title">Analytics</h5>
-            <p class="card-text">Will go here</p>
+            <h5 class="card-title">{{outTotal}} People decided to eat out!</h5>
           </div>
         </div>
       </div>
@@ -256,15 +253,13 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12 typing-slider">
-              <p>What is for dinner?</p>
-              <p>Seriously. I'm starving.</p>
-              <p>Feed me.</p>
-            
+            <p>What is for dinner?</p>
+            <p>Seriously. I'm starving.</p>
+            <p>Feed me.</p>
           </div>
         </div>
       </div>
     </section>
-
   </div>
 
 
@@ -275,7 +270,8 @@
     };
 
 
-    var outAnswers = {
+    var answers = {
+      inorout: "",
       zipcode: "",
       category: "",
       spend: "",
@@ -284,9 +280,9 @@
     var submitOutAnswers = function () {
 
       // AJAX post the data to the out API.
-      $.post("/api/out", outAnswers, function (res) {
+      $.post("/api/out", answers, function (res) {
 
-        console.log("Submitted: ", outAnswers);
+        console.log("Submitted: ", answers);
         $("#results-card").delay(5000).fadeIn(1000);
       });
     };
@@ -300,17 +296,18 @@
 
       startApp();
 
-      $("#out-button").on("click", function (event) {
+      $("#inout-button").on("click", function (event) {
         event.preventDefault();
-
+        answers.inorout = $('input[name=out]:checked').val();
+        console.log(answers.inorout);
         $("#location-card").show("slow");
       });
 
       $("#zipcode-button").on("click", function (event) {
         event.preventDefault();
 
-        outAnswers.zipcode = $("#zipcode-form").val().trim();
-        console.log(outAnswers.zipcode)
+        answers.zipcode = $("#zipcode-form").val().trim();
+        console.log(answers.zipcode)
         $("#location-card").hide("slow");
         $("#category-card").show("slow");
       });
@@ -318,18 +315,18 @@
       $("#category-button").on("click", function (event) {
         event.preventDefault();
 
-        outAnswers.category = $('input[name=outCategory]:checked').val();
-        console.log(outAnswers.category)
+        answers.category = $('input[name=outCategory]:checked').val();
+        console.log(answers.category)
         $("#category-card").hide("slow");
         $("#spend-card").show("slow");
       });
 
       $("#spend-button").on("click", function (event) {
         event.preventDefault();
-        outAnswers.spend = $('input[name=outSpend]:checked').val();
-        console.log(outAnswers.spend)
+        answers.spend = $('input[name=outSpend]:checked').val();
+        console.log(answers.spend)
         $("#spend-card").hide("slow");
-        console.log(outAnswers)
+        console.log(answers)
         loading();
       });
 
