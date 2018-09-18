@@ -9,7 +9,7 @@ const client = yelp.client(process.env.YELP_API_KEY);
 client.search({
   location: '60607',
   price: '1',
-  categories: 'pizza'
+  categories: 'bbq'
 }).then(response => {
     for (var i=0;i<11;i++){
   console.log(response.jsonBody.businesses[i].name);
