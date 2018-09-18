@@ -4,44 +4,32 @@ require('dotenv').config();
 const yelp = require('yelp-fusion');
 const client = yelp.client(process.env.YELP_API_KEY);
 
-
 module.exports = function(app) {
   // Get all examples
   app.get("/api/examples", function(req, res) {
-    client.search({
-      location: '60607',
-      price: '1',
-      categories: 'pizza'
-    }).then(response => {
-        for (var i = 0; i < 1 ; i++ ){
-      console.log(response.jsonBody.businesses[i].name);
-      console.log(response.jsonBody.businesses[i].location.address1);
-      console.log(response.jsonBody.businesses[i].location.city);
-      console.log(response.jsonBody.businesses[i].display_phone);
-      console.log(response.jsonBody.businesses[i].price);
-      console.log(response.jsonBody.businesses[i].image_url);
-    //   console.log(response.jsonBody.businesses[i].categories);
-        }
-    }).catch(e => {
-      console.log(e);
+    db.Example.findAll({}).then(function(dbExamples) {
+      res.json(dbExamples);
     });
-    // db.Example.findAll({}).then(function(dbExamples) {
-    //   res.json(dbExamples);
-    });
-  // });
+  });
 
   // Create a new example
 
-  app.post("/api/zipcode", function(req, res) {
+  app.post("/api/out", function(req, res) {
     var zipCode = req.body.zipcode;
-    console.log(zipCode);
+    var categories = req.body.category;
+    var price = req.body.spend;
+    console.log(req);
+    console.log( "express " + zipCode);
+    console.log("express " + categories);
+    console.log("express " + price);
+    
     // db.Example.create(req.body).then(function(dbExample) {
     //   res.json(dbExample);
 
       client.search({
-        location: '60607',
-        price: '1',
-        categories: 'bbq'
+        location: zipCode,
+        price: price,
+        categories: categories
       }).then(response => {
           for (var i=0;i<11;i++){
         console.log(response.jsonBody.businesses[i].name);
@@ -55,11 +43,11 @@ module.exports = function(app) {
       }).catch(e => {
         console.log(e);
       });
-
-    });
+      return res;
+  });
   // });
 
-  app.post("/api/out", function(req, res) {
+  app.post("/api/in", function(req, res) {
     console.log("this is server req.body: " + JSON.stringify(req.body));
     
     // db.Example.create(req.body).then(function(dbExample) {

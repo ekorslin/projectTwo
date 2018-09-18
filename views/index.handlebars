@@ -68,13 +68,13 @@
           </div>
         </div>
       </div>
-      <div class="card-body">
+      {{!-- <div class="card-body">
         <h5 class="card-title">Please enter your zip code:</h5>
         <form id="zipForm" action="/api/zipcode" method="POST">
           <textarea type="text" rows="1" name="zipcode" value=""></textarea><br>
           <button type="submit" class="btn btn-info mb-2" id="zipcode-button">Next</button>
         </form>
-    </div>
+    </div> --}}
 
     {{!-- if user chooses to eat out this is the card asking for zip code --}}
     <div class="row text-center" id="location-card">
@@ -300,7 +300,7 @@
 
     var loading = function () {
       $(".loading-screen").show(); setTimeout(function () { $(".loading-screen").hide(); }, 5000);
-      submitOutAnswers();
+      
     };
 
     $(document).ready(function () {
@@ -341,7 +341,8 @@
         outAnswers.spend = $('input[name=outSpend]:checked').val();
         console.log(outAnswers.spend)
         $("#spend-card").hide("slow");
-        console.log(outAnswers)
+        console.log(outAnswers);
+        submitOutAnswers();
         loading();
       });
 
