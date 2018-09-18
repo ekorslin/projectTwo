@@ -1,6 +1,4 @@
 var db = require("../models");
-var db = require("../routes/apiRoutes");
-
 
 var helpers = {
 
@@ -14,7 +12,7 @@ var helpers = {
          .then(function(result){
       
            var outTotal = result.count;
-           console.log("this is the count: " + outTotal);
+           console.log("this is the count from helpers: " + outTotal);
            
          });
     },
@@ -32,7 +30,7 @@ var helpers = {
     }
 };
 
-helpers.mostPopSearch();
+
 
 module.exports = helpers;
 

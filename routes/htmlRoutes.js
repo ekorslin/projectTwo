@@ -1,8 +1,12 @@
 var db = require("../models");
+var helpers = require("../helpers/helpers");
+
 
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
+
+    helpers.mostPopSearch();
      
     db.Search.findAndCountAll({
       where: {
@@ -12,7 +16,7 @@ module.exports = function(app) {
    .then(function(result){
 
      var outTotal = result.count;
-     console.log("this is the count: " + outTotal);
+     console.log("this is the count from html routes: " + outTotal);
      
      res.render("index", {
       outTotal: outTotal
