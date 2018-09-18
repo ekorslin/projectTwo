@@ -7,7 +7,9 @@ const client = yelp.client(process.env.YELP_API_KEY);
 module.exports = function(app) {
   // Get all examples
   app.get("/api/examples", function(req, res) {
-    db.Example.findAll({}).then(function(dbExamples) {
+    db.Search.findAll({}).then(function(dbExamples) {
+      // console.log(dbExamples);
+      
       res.json(dbExamples);
     });
   });
@@ -49,10 +51,21 @@ module.exports = function(app) {
 
   app.post("/api/in", function(req, res) {
     console.log("this is server req.body: " + JSON.stringify(req.body));
-    
-    // db.Example.create(req.body).then(function(dbExample) {
-      res.json(req.body);
-    // });
+
+    db.Search.create({
+      inorout: req.body.inorout,
+      zipcode: req.body.zipcode,
+      category: req.body.category,
+      spend: req.body.spend
+    })
+      .then(function(dbSearch) {
+        
+        
+        
+        
+        
+        res.json(dbSearch);
+      });
   });
 
 
